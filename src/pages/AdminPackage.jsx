@@ -15,7 +15,7 @@ const AdminPackages = () => {
 
     const fetchPackages = async () => {
         try {
-            const response = await axios.get('http://localhost:3000/apiPackages/package');
+            const response = await axios.get('https://wildlens-backend-8aul.onrender.com/apiPackages/package');
             if (Array.isArray(response.data)) {
                 setPackages(response.data);
                 console.log('Fetched packages:', response.data);
@@ -51,7 +51,7 @@ const AdminPackages = () => {
             let response;
             if (editingPackage) {
                 response = await axios.put(
-                    `http://localhost:3000/apiPackages/package/${editingPackage._id}`,
+                    `https://wildlens-backend-8aul.onrender.com/apiPackages/package/${editingPackage._id}`,
                     formData,
                     {
                         headers: {
@@ -63,7 +63,7 @@ const AdminPackages = () => {
                 message.success('Package updated successfully');
             } else {
                 response = await axios.post(
-                    'http://localhost:3000/apiPackages/addPackage',
+                    'https://wildlens-backend-8aul.onrender.com/apiPackages/addPackage',
                     formData,
                     {
                         headers: {
@@ -101,7 +101,7 @@ const AdminPackages = () => {
     const handleDelete = async (packageId) => {
         try {
             const token = localStorage.getItem('token'); 
-            await axios.delete(`http://localhost:3000/apiPackages/package/${packageId}`, {
+            await axios.delete(`https://wildlens-backend-8aul.onrender.com/apiPackages/package/${packageId}`, {
                 headers: {
                     'Authorization': `Bearer ${token}`,
                 },

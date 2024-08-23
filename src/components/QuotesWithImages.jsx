@@ -9,7 +9,7 @@ const QuotesWithImages = () => {
   const [quotes, setQuotes] = useState([]);
 
   useEffect(() => {
-    axios.get('http://localhost:3000/home/quotes')
+    axios.get('https://wildlens-backend-8aul.onrender.com/home/quotes')
       .then(response => setQuotes(response.data))
       .catch(error => console.error('Error fetching quotes:', error));
   }, []);

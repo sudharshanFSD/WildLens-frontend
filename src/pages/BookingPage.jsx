@@ -29,7 +29,7 @@ const BookingPage = () => {
                     return;
                 }
 
-                const response = await axios.get(`http://localhost:3000/apiPackages/package/${packageId}`, { 
+                const response = await axios.get(`https://wildlens-backend-8aul.onrender.com/apiPackages/package/${packageId}`, { 
                     headers: { Authorization: `Bearer ${token}` }
                 });
                 
@@ -62,7 +62,7 @@ const BookingPage = () => {
                 return;
             }
 
-            const response = await axios.post(`http://localhost:3000/apiBooking/package/${packageId}/book`, {
+            const response = await axios.post(`https://wildlens-backend-8aul.onrender.com/apiBooking/package/${packageId}/book`, {
                 numberOfPersons,
                 bookingDate,
                 additionalInfo

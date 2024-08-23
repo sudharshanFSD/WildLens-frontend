@@ -31,19 +31,19 @@ const PackageDetail = () => {
                 }
 
                 // Fetch package details
-                const packageResponse = await axios.get(`http://localhost:3000/apiPackages/package/${packageId}`, {
+                const packageResponse = await axios.get(`https://wildlens-backend-8aul.onrender.com/apiPackages/package/${packageId}`, {
                     headers: { Authorization: `Bearer ${token}` }
                 });
                 setPackageDetail(packageResponse.data);
 
                 // Fetch comments
-                const commentsResponse = await axios.get(`http://localhost:3000/apiComment/package/${packageId}/comments`, {
+                const commentsResponse = await axios.get(`https://wildlens-backend-8aul.onrender.com/apiComment/package/${packageId}/comments`, {
                     headers: { Authorization: `Bearer ${token}` }
                 });
                 setComments(commentsResponse.data);
 
                 // Fetch actual rating values
-                const ratingsResponse = await axios.get(`http://localhost:3000/apiRating/package/${packageId}/ratings`, {
+                const ratingsResponse = await axios.get(`https://wildlens-backend-8aul.onrender.com/apiRating/package/${packageId}/ratings`, {
                     headers: { Authorization: `Bearer ${token}` }
                 });
                 setRatingValues(ratingsResponse.data.map(rating => rating.value));
@@ -76,21 +76,21 @@ const PackageDetail = () => {
             }
 
             await Promise.all([
-                axios.post(`http://localhost:3000/apiRating/package/${packageId}/ratings`, { value: newRating }, {
+                axios.post(`https://wildlens-backend-8aul.onrender.com/apiRating/package/${packageId}/ratings`, { value: newRating }, {
                     headers: { Authorization: `Bearer ${token}` }
                 }),
-                axios.post(`http://localhost:3000/apiComment/package/${packageId}/comments`, { content: newComment }, {
+                axios.post(`https://wildlens-backend-8aul.onrender.com/apiComment/package/${packageId}/comments`, { content: newComment }, {
                     headers: { Authorization: `Bearer ${token}` }
                 })
             ]);
 
             // Refetch comments and ratings
-            const commentsResponse = await axios.get(`http://localhost:3000/apiComment/package/${packageId}/comments`, {
+            const commentsResponse = await axios.get(`https://wildlens-backend-8aul.onrender.com/apiComment/package/${packageId}/comments`, {
                 headers: { Authorization: `Bearer ${token}` }
             });
             setComments(commentsResponse.data);
 
-            const ratingsResponse = await axios.get(`http://localhost:3000/apiRating/package/${packageId}/ratings`, {
+            const ratingsResponse = await axios.get(`https://wildlens-backend-8aul.onrender.com/apiRating/package/${packageId}/ratings`, {
                 headers: { Authorization: `Bearer ${token}` }
             });
             setRatingValues(ratingsResponse.data.map(rating => rating.value));
@@ -117,7 +117,7 @@ const PackageDetail = () => {
                 return;
             }
 
-            await axios.delete(`http://localhost:3000/apiComment/package/${packageId}/comments/${commentId}`, {
+            await axios.delete(`https://wildlens-backend-8aul.onrender.com/apiComment/package/${packageId}/comments/${commentId}`, {
                 headers: { Authorization: `Bearer ${token}` }
             });
             setComments((prevComments) => prevComments.filter((comment) => comment._id !== commentId));

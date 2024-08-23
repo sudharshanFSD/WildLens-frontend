@@ -9,12 +9,11 @@ const Packages = () => {
   const [error, setError] = useState(null);
   const [hoveredCard, setHoveredCard] = useState(null);
   const scrollContainerRef = useRef(null);
-  const searchInputRef = useRef(null);
 
   useEffect(() => {
     const fetchPackages = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/apiPackages/search');
+        const response = await axios.get('https://wildlens-backend-8aul.onrender.com/apiPackages/search');
         setPackages(response.data);
       } catch (error) {
         setError('Error fetching packages.');
@@ -23,12 +22,6 @@ const Packages = () => {
     };
 
     fetchPackages();
-  }, []);
-
-  useEffect(() => {
-    if (searchInputRef.current) {
-      searchInputRef.current.focus(); // Focus the search input when the component mounts
-    }
   }, []);
 
   const scrollLeft = () => {
@@ -50,16 +43,15 @@ const Packages = () => {
     padding: '20px',
     boxSizing: 'border-box',
     position: 'relative',
-    fontFamily: `-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji'`,
-    fontWeight: 400, // Medium font weight for the container
+    fontFamily: `-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', 'Noto Sans', sans-serif`,
   };
 
   const titleStyle = {
-    fontSize: '22px',
-    fontWeight: '600', // Bold font weight for the title
+    fontSize: '20px', // Slightly reduced font size for the title
+    fontWeight: '400', // Lighter font weight for the title
     marginBottom: '20px',
     textAlign: 'center',
-    color: '#333', // Darker color 
+    color: '#333',
   };
 
   const scrollContainerStyle = {
@@ -71,7 +63,7 @@ const Packages = () => {
     msOverflowStyle: 'none', // Internet Explorer and Edge
   };
 
-  const cardStyle = (isHovered) => ({
+  const cardStyle = {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
@@ -79,15 +71,18 @@ const Packages = () => {
     border: '1px solid #ddd',
     borderRadius: '8px',
     padding: '16px',
-    minWidth: '300px',
+    width: '300px', // Fixed width
+    height: '400px', // Fixed height
     boxSizing: 'border-box',
     margin: '10px',
     transition: 'transform 0.3s ease, box-shadow 0.3s ease',
-    transform: isHovered ? 'scale(1.05)' : 'scale(1)', // Scale up on hover
-    boxShadow: isHovered ? '0 8px 16px rgba(0, 0, 0, 0.3)' : '0 4px 8px rgba(0, 0, 0, 0.1)', // Box shadow on hover
-    zIndex: isHovered ? 1 : 'auto', // Bring to front on hover
-    fontWeight: 400, // Medium font weight for card content
-  });
+  };
+
+  const cardHoverStyle = {
+    transform: 'scale(1.05)',
+    boxShadow: '0 8px 16px rgba(0, 0, 0, 0.3)',
+    zIndex: 1,
+  };
 
   const imageStyle = {
     width: '100%',
@@ -99,19 +94,18 @@ const Packages = () => {
 
   const infoStyle = {
     textAlign: 'center',
-    fontWeight: 400, // Medium font weight for the info section
   };
 
   const textStyle = {
     fontSize: '14px',
     color: '#666',
     margin: '5px 0',
-    fontWeight: 400, // Medium font weight for text
+    fontWeight: '300', // Lighter font weight for text
   };
 
   const titleTextStyle = {
     ...textStyle,
-    fontWeight: '600', // Bold font weight for emphasis
+    fontWeight: '400', // Lighter font weight for the title
     fontSize: '16px',
     color: '#333',
   };
@@ -153,7 +147,12 @@ const Packages = () => {
             onMouseEnter={() => setHoveredCard(pkg._id)}
             onMouseLeave={() => setHoveredCard(null)}
           >
-            <div style={cardStyle(hoveredCard === pkg._id)}>
+            <div
+              style={{
+                ...cardStyle,
+                ...(hoveredCard === pkg._id ? cardHoverStyle : {}),
+              }}
+            >
               <img src={pkg.images[0]} alt={pkg.title} style={imageStyle} />
               <div style={infoStyle}>
                 <h3 style={titleTextStyle}>{pkg.title}</h3>

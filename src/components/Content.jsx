@@ -11,7 +11,7 @@ const Content = () => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    axios.get('http://localhost:3000/home/')
+    axios.get('https://wildlens-backend-8aul.onrender.com/home/')
       .then(response => {
         setContent(response.data);
         setLoading(false);

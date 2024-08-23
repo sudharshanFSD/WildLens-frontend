@@ -24,7 +24,7 @@ const MyBookings = () => {
                     return;
                 }
 
-                const response = await axios.get('http://localhost:3000/apiBooking/bookings', {
+                const response = await axios.get('https://wildlens-backend-8aul.onrender.com/apiBooking/bookings', {
                     headers: { Authorization: `Bearer ${token}` },
                 });
 
@@ -46,7 +46,7 @@ const MyBookings = () => {
 
     const fetchBookings = async () => {
         const token = getAuthToken();
-        const response = await axios.get('http://localhost:3000/apiBooking/bookings', {
+        const response = await axios.get('https://wildlens-backend-8aul.onrender.com/apiBooking/bookings', {
             headers: { Authorization: `Bearer ${token}` },
         });
         setBookings(response.data);
@@ -67,7 +67,7 @@ const MyBookings = () => {
             onOk: async () => {
                 try {
                     const token = getAuthToken();
-                    const response = await axios.delete(`http://localhost:3000/apiBooking/booking/${bookingId}/cancel`, {
+                    const response = await axios.delete(`https://wildlens-backend-8aul.onrender.com/apiBooking/booking/${bookingId}/cancel`, {
                         headers: { Authorization: `Bearer ${token}` },
                     });
 

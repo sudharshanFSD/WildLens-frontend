@@ -40,11 +40,11 @@ const PaymentForm = ({ clientSecret, stripePaymentId, bookingId }) => {
             message.success('Payment succeeded!');
             try {
                 // Update payment status in the payment database
-                await axios.put(`http://localhost:3000/apiPayment/${stripePaymentId}/status`, { status: 'Completed' });
+                await axios.put(`https://wildlens-backend-8aul.onrender.com/apiPayment/${stripePaymentId}/status`, { status: 'Completed' });
                 console.log('Payment status updated successfully');
   
                 // Update booking status in the bookings database only if payment is completed
-                await axios.put(`http://localhost:3000/apiBooking/${bookingId}/status`, { status: 'Completed' });
+                await axios.put(`https://wildlens-backend-8aul.onrender.com/apiBooking/${bookingId}/status`, { status: 'Completed' });
                 console.log('Booking status updated to completed successfully');
 
             } catch (updateError) {

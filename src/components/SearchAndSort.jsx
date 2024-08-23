@@ -19,7 +19,7 @@ const SearchAndSort = () => {
     setLoading(true);
     setError(null);
     try {
-      const response = await axios.get('http://localhost:3000/apiPackages/search', {
+      const response = await axios.get('https://wildlens-backend-8aul.onrender.com/apiPackages/search', {
         params: {
           title: searchTitle,
           sort: sortOption,

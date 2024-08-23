@@ -12,7 +12,7 @@ function Login() {
 
     const onFinish = (values) => {
         setLoading(true);
-        axios.post('http://localhost:3000/apiAuth/login', values)
+        axios.post('https://wildlens-backend-8aul.onrender.com/apiAuth/login', values)
             .then(response => {
                 // Save the token and role in localStorage
                 localStorage.setItem('token', response.data.token);

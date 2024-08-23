@@ -15,8 +15,7 @@ const TopPackages = () => {
 
   const fetchTopPackages = async () => {
     try {
-      const response = await axios.get('http://localhost:3000/tours/topPackages');
-     
+      const response = await axios.get('https://wildlens-backend-8aul.onrender.com/tours/topPackages');
 
       if (Array.isArray(response.data)) {
         setPackages(response.data);
@@ -55,15 +54,15 @@ const TopPackages = () => {
     padding: '20px',
     boxSizing: 'border-box',
     position: 'relative',
-    fontFamily: `-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji'`,
+    fontFamily: `-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', 'Noto Sans', sans-serif`,
   };
 
   const titleStyle = {
-    fontSize: '22px',
-    fontWeight: '600', // Bold font weight for the title
+    fontSize: '20px',
+    fontWeight: '500', // Lighter weight
     marginBottom: '20px',
     textAlign: 'center',
-    color: '#333', // Darker color 
+    color: '#333',
   };
 
   const scrollContainerStyle = {
@@ -71,9 +70,15 @@ const TopPackages = () => {
     overflowX: 'auto',
     scrollBehavior: 'smooth',
     paddingBottom: '20px',
-    overflowY: 'hidden', // Hide vertical scrollbar
-    scrollbarWidth: 'none', // Firefox
-    msOverflowStyle: 'none', // Internet Explorer and Edge
+    overflowY: 'hidden',
+    scrollbarWidth: 'none',
+    msOverflowStyle: 'none',
+  };
+
+  const cardContainerStyle = {
+    display: 'flex',
+    flexDirection: 'row',
+    flexWrap: 'nowrap',
   };
 
   const cardStyle = {
@@ -88,8 +93,7 @@ const TopPackages = () => {
     boxSizing: 'border-box',
     margin: '10px',
     transition: 'transform 0.3s ease, box-shadow 0.3s ease',
-    transformStyle: 'preserve-3d',
-    fontWeight: 400, // Medium font weight for card content
+    height: '400px',
   };
 
   const cardHoverStyle = {
@@ -107,20 +111,21 @@ const TopPackages = () => {
 
   const infoStyle = {
     textAlign: 'center',
+    flex: '1',
   };
 
   const textStyle = {
     fontSize: '14px',
-    color: '#555', // Darker color
+    color: '#555',
     margin: '5px 0',
-    fontWeight: 400, // Medium font weight for better readability
+    fontWeight: 300, // Lighter weight
   };
 
   const titleTextStyle = {
     ...textStyle,
-    fontWeight: '600', // Bold font weight 
+    fontWeight: '500', // Lighter weight
     fontSize: '16px',
-    color: '#333', // Darker color 
+    color: '#333',
   };
 
   const arrowStyle = {
@@ -159,29 +164,30 @@ const TopPackages = () => {
       <LeftOutlined style={leftArrowStyle} onClick={scrollLeft} />
       <RightOutlined style={rightArrowStyle} onClick={scrollRight} />
       <div style={scrollContainerStyle} ref={scrollContainerRef}>
-        {packages.map((pkg) => (
-          <Link to={`/packages/${pkg._id}`} key={pkg._id} style={{ textDecoration: 'none', color: 'inherit' }}>
-            <div
-              style={cardStyle}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.transform = cardHoverStyle.transform;
-                e.currentTarget.style.boxShadow = cardHoverStyle.boxShadow;
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.transform = 'none';
-                e.currentTarget.style.boxShadow = 'none';
-              }}
-            >
-              <img src={pkg.images[0]} alt={pkg.title} style={imageStyle} />
-              <div style={infoStyle}>
-                <h3 style={titleTextStyle}>{pkg.title}</h3>
-                <p style={textStyle}>{pkg.description}</p>
-                <p style={textStyle}>Price: ${pkg.price}</p>
-               
+        <div style={cardContainerStyle}>
+          {packages.map((pkg) => (
+            <Link to={`/packages/${pkg._id}`} key={pkg._id} style={{ textDecoration: 'none', color: 'inherit' }}>
+              <div
+                style={cardStyle}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.transform = cardHoverStyle.transform;
+                  e.currentTarget.style.boxShadow = cardHoverStyle.boxShadow;
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.transform = 'none';
+                  e.currentTarget.style.boxShadow = 'none';
+                }}
+              >
+                <img src={pkg.images[0]} alt={pkg.title} style={imageStyle} />
+                <div style={infoStyle}>
+                  <h3 style={titleTextStyle}>{pkg.title}</h3>
+                  <p style={textStyle}>{pkg.description}</p>
+                  <p style={textStyle}>Price: ${pkg.price}</p>
+                </div>
               </div>
-            </div>
-          </Link>
-        ))}
+            </Link>
+          ))}
+        </div>
       </div>
     </div>
   );

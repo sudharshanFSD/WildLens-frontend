@@ -12,7 +12,7 @@ function Register() {
 
     const onFinish = (values) => {
         setLoading(true);
-        axios.post('http://localhost:3000/apiAuth/register', values)
+        axios.post('https://wildlens-backend-8aul.onrender.com/apiAuth/register', values)
             .then(response => {
                 message.success(response.data.message || 'Registration successful!');
                 navigate('/login');  // Redirect to login page upon successful registration
