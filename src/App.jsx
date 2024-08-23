@@ -37,7 +37,7 @@ const App = () => {
                         <Route path="/my-bookings" element={<UserBookings/>}/>
                         <Route path="/payment" element={<PaymentPage />} />
                         <Route path="/admin/packages" element={isAdmin ? <AdminPackages /> : <Navigate to="/" />} /> {/* Protect admin route */}
-                        
+                        <Route path="*" element={<Navigate to="/" />} />
                     </Routes>
                 </Content>
             </Layout>
