@@ -1,22 +1,21 @@
-// Login.js
 import React, { useState } from 'react';
 import { Form, Input, Button, message, Typography, Row, Col, Card } from 'antd';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from './AuthContext'; // Import useAuth hook
+import login from '../../public/images/login.png';
 
 const { Title } = Typography;
 
-function Login() {
+function Login({ onLogin }) {
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
-    const { login } = useAuth(); // Destructure login function
 
     const onFinish = (values) => {
         setLoading(true);
         axios.post('https://wildlens-backend-8aul.onrender.com/apiAuth/login', values)
             .then(response => {
-                login(response.data.token, response.data.role); // Use login from context
+                // Use the onLogin prop to update authentication state in App
+                onLogin(response.data.token, response.data.role);
 
                 message.success('Login successful');
                 navigate('/home');

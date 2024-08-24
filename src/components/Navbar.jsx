@@ -1,14 +1,10 @@
-// Navbar.js
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Layout, Menu } from 'antd';
-import { useAuth } from './AuthContext'; // Import useAuth hook
 
 const { Header } = Layout;
 
-function Navbar() {
-    const { isAuthenticated, isAdmin, logout } = useAuth(); // Destructure values from context
-
+function Navbar({ isAdmin, isAuthenticated, onLogout }) {
     return (
         <Header>
             <div className='logo' />
@@ -19,7 +15,7 @@ function Navbar() {
                 <Menu.Item key='4'><Link to='/my-bookings'>My Bookings</Link></Menu.Item>
                 {isAdmin && <Menu.Item key='5'><Link to='/admin/packages'>Admin</Link></Menu.Item>}
                 {isAuthenticated ? (
-                    <Menu.Item key='6' style={{ marginLeft: 'auto' }} onClick={logout}>
+                    <Menu.Item key='6' style={{ marginLeft: 'auto' }} onClick={onLogout}>
                         Logout
                     </Menu.Item>
                 ) : (
