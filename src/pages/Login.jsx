@@ -21,8 +21,8 @@ function Login() {
                 message.success('Login successful');
                 // Redirect to home
                 navigate('/home');
-               
-             
+                // Refresh the page
+                window.location.reload(true); // Refresh the page after successful login
             })
             .catch(error => {
                 console.error('Login failed:', error.response ? error.response.data : error.message);
