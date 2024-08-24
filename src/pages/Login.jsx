@@ -21,6 +21,8 @@ function Login() {
                 message.success('Login successful');
                 // Redirect to home
                 navigate('/home');
+                window.location.reload(true);
+
             
             })
             .catch(error => {

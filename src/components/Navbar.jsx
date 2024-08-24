@@ -10,7 +10,7 @@ function Navbar({ isAdmin }) { // Accept isAdmin as a prop
     const handleLogout = () => {
         localStorage.removeItem('token');
         localStorage.removeItem('role');
-       
+        window.location.reload(true);
     };
 
     return (
