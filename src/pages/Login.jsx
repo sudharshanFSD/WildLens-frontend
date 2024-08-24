@@ -6,7 +6,7 @@ import login from '../../public/images/login.png';
 
 const { Title } = Typography;
 
-function Login({ onLogin }) {
+function Login() {
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
 
@@ -14,11 +14,14 @@ function Login({ onLogin }) {
         setLoading(true);
         axios.post('https://wildlens-backend-8aul.onrender.com/apiAuth/login', values)
             .then(response => {
-                // Use the onLogin prop to update authentication state in App
-                onLogin(response.data.token, response.data.role);
+                // Save the token and role in localStorage
+                localStorage.setItem('token', response.data.token);
+                localStorage.setItem('role', response.data.role); // Save user role
 
                 message.success('Login successful');
+                // Redirect to home
                 navigate('/home');
+            
             })
             .catch(error => {
                 console.error('Login failed:', error.response ? error.response.data : error.message);
@@ -37,7 +40,8 @@ function Login({ onLogin }) {
                         style={{
                             width: '40vw',
                             maxWidth: '800px',
-                            height: '45vh',
+                            height:'45vh',
+
                             boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)',
                             borderRadius: '8px',
                             padding: '20px',
