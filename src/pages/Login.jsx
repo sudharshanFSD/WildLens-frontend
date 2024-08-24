@@ -1,28 +1,25 @@
+// Login.js
 import React, { useState } from 'react';
 import { Form, Input, Button, message, Typography, Row, Col, Card } from 'antd';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import login from '../../public/images/login.png';
+import { useAuth } from './AuthContext'; // Import useAuth hook
 
 const { Title } = Typography;
 
 function Login() {
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
+    const { login } = useAuth(); // Destructure login function
 
     const onFinish = (values) => {
         setLoading(true);
         axios.post('https://wildlens-backend-8aul.onrender.com/apiAuth/login', values)
             .then(response => {
-                // Save the token and role in localStorage
-                localStorage.setItem('token', response.data.token);
-                localStorage.setItem('role', response.data.role); // Save user role
+                login(response.data.token, response.data.role); // Use login from context
 
                 message.success('Login successful');
-                // Redirect to home
                 navigate('/home');
-                // Refresh the page
-                window.location.reload(true); // Refresh the page after successful login
             })
             .catch(error => {
                 console.error('Login failed:', error.response ? error.response.data : error.message);
@@ -41,8 +38,7 @@ function Login() {
                         style={{
                             width: '40vw',
                             maxWidth: '800px',
-                            height:'45vh',
-
+                            height: '45vh',
                             boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)',
                             borderRadius: '8px',
                             padding: '20px',

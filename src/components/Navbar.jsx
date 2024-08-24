@@ -1,17 +1,13 @@
+// Navbar.js
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Layout, Menu } from 'antd';
+import { useAuth } from './AuthContext'; // Import useAuth hook
 
 const { Header } = Layout;
 
-function Navbar({ isAdmin }) { // Accept isAdmin as a prop
-    const isLoggedIn = !!localStorage.getItem('token'); // Check if token exists
-
-    const handleLogout = () => {
-        localStorage.removeItem('token');
-        localStorage.removeItem('role');
-        window.location.reload(true); // Reload to reflect changes
-    };
+function Navbar() {
+    const { isAuthenticated, isAdmin, logout } = useAuth(); // Destructure values from context
 
     return (
         <Header>
@@ -21,9 +17,9 @@ function Navbar({ isAdmin }) { // Accept isAdmin as a prop
                 <Menu.Item key='2'><Link to='/about'>About</Link></Menu.Item>
                 <Menu.Item key='3'><Link to='/tours'>Tours</Link></Menu.Item>
                 <Menu.Item key='4'><Link to='/my-bookings'>My Bookings</Link></Menu.Item>
-                {isAdmin && <Menu.Item key='5'><Link to='/admin/packages'>Admin</Link></Menu.Item>} {/* Admin link */}
-                {isLoggedIn ? (
-                    <Menu.Item key='6' style={{ marginLeft: 'auto' }} onClick={handleLogout}>
+                {isAdmin && <Menu.Item key='5'><Link to='/admin/packages'>Admin</Link></Menu.Item>}
+                {isAuthenticated ? (
+                    <Menu.Item key='6' style={{ marginLeft: 'auto' }} onClick={logout}>
                         Logout
                     </Menu.Item>
                 ) : (
