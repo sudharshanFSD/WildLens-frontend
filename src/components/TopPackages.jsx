@@ -59,7 +59,7 @@ const TopPackages = () => {
 
   const titleStyle = {
     fontSize: '20px',
-    fontWeight: '500', // Lighter weight
+    fontWeight: '500',
     marginBottom: '20px',
     textAlign: 'center',
     color: '#333',
@@ -89,7 +89,7 @@ const TopPackages = () => {
     border: '1px solid #ddd',
     borderRadius: '8px',
     padding: '16px',
-    minWidth: '300px',
+    minWidth: '320px', // Increased width to accommodate broader title
     boxSizing: 'border-box',
     margin: '10px',
     transition: 'transform 0.3s ease, box-shadow 0.3s ease',
@@ -118,14 +118,17 @@ const TopPackages = () => {
     fontSize: '14px',
     color: '#555',
     margin: '5px 0',
-    fontWeight: 300, // Lighter weight
+    fontWeight: 300,
   };
 
   const titleTextStyle = {
     ...textStyle,
-    fontWeight: '500', // Lighter weight
-    fontSize: '16px',
+    fontWeight: '500',
+    fontSize: '18px', // Increased font size for a broader title
     color: '#333',
+    margin: '10px 0', // Added margin for better spacing
+    textAlign: 'center',
+    overflowWrap: 'break-word',
   };
 
   const arrowStyle = {
