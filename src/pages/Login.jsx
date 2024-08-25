@@ -44,7 +44,8 @@ function Login({ onLogin }) {
                             boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)',
                             borderRadius: '8px',
                             padding: '20px',
-                            margin: '0 auto', // Center the card horizontally
+                            margin: '0 auto',
+                            marginTop:'200px' 
                         }}
                     >
                         <Row gutter={16} align="middle">
