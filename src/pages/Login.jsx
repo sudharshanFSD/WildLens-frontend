@@ -6,7 +6,7 @@ import login from '../../public/images/login.png';
 
 const { Title } = Typography;
 
-function Login({ onLogin }) { // Accept onLogin as a prop
+function Login({ onLogin }) {
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
 
@@ -14,9 +14,7 @@ function Login({ onLogin }) { // Accept onLogin as a prop
         setLoading(true);
         axios.post('https://wildlens-backend-8aul.onrender.com/apiAuth/login', values)
             .then(response => {
-                // Call the onLogin prop to update authentication state in App
                 onLogin(response.data.token, response.data.role);
-
                 message.success('Login successful');
                 navigate('/home');
             })
@@ -30,33 +28,38 @@ function Login({ onLogin }) { // Accept onLogin as a prop
     };
 
     return (
-        <div style={{ height: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-            <Row justify="center">
-                <Col>
+        <div style={{
+            height: '100vh',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            padding: '0 10px' // Added padding to prevent horizontal overflow
+        }}>
+            <Row justify="center" style={{ width: '100%' }}>
+                <Col xs={24} sm={22} md={18} lg={16} xl={12}>
                     <Card
                         style={{
-                            width: '40vw',
+                            width: '100%',
                             maxWidth: '800px',
-                            height: '45vh',
                             boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)',
                             borderRadius: '8px',
                             padding: '20px',
-                            marginTop: "-200px"
+                            margin: '0 auto', // Center the card horizontally
                         }}
                     >
                         <Row gutter={16} align="middle">
-                            <Col span={10}>
+                            <Col xs={24} sm={24} md={10} lg={10} xl={10}>
                                 <img
                                     src={login}
                                     alt="Login"
                                     style={{
-                                        width: '80%',
+                                        width: '100%',
                                         height: 'auto',
                                         borderRadius: '8px'
                                     }}
                                 />
                             </Col>
-                            <Col span={14}>
+                            <Col xs={24} sm={24} md={14} lg={14} xl={14}>
                                 <div style={{ textAlign: 'center', marginBottom: '20px' }}>
                                     <Title level={2}>Login</Title>
                                 </div>
@@ -92,3 +95,4 @@ function Login({ onLogin }) { // Accept onLogin as a prop
 }
 
 export default Login;
+ 
