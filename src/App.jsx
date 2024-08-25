@@ -12,7 +12,7 @@ import UserBookings from './pages/UserBookings';
 import BookingPage from './pages/BookingPage';
 import Tours from './pages/Tours';
 import AdminPackages from './pages/AdminPackage';
-import auth from './utils/auth'; // Assuming this contains the authentication logic
+import auth from './utils/auth';
 
 const { Content } = Layout;
 
@@ -57,6 +57,7 @@ const App = () => {
                         <Route path="/my-bookings" element={<UserBookings />} />
                         <Route path="/payment" element={<PaymentPage />} />
                         <Route path="/admin/packages" element={isAdmin ? <AdminPackages /> : <Navigate to="/" />} />
+                        <Route path="*" element={<Navigate to="/login" />} /> {/* Catch-all route */}
                     </Routes>
                 </Content>
             </Layout>
