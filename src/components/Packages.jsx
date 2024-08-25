@@ -47,8 +47,8 @@ const Packages = () => {
   };
 
   const titleStyle = {
-    fontSize: '20px', // Slightly reduced font size for the title
-    fontWeight: '400', // Lighter font weight for the title
+    fontSize: '20px',
+    fontWeight: '400',
     marginBottom: '20px',
     textAlign: 'center',
     color: '#333',
@@ -59,8 +59,8 @@ const Packages = () => {
     overflowX: 'auto',
     scrollBehavior: 'smooth',
     paddingBottom: '20px',
-    scrollbarWidth: 'none', // Firefox
-    msOverflowStyle: 'none', // Internet Explorer and Edge
+    scrollbarWidth: 'none',
+    msOverflowStyle: 'none',
   };
 
   const cardStyle = {
@@ -71,8 +71,8 @@ const Packages = () => {
     border: '1px solid #ddd',
     borderRadius: '8px',
     padding: '16px',
-    width: '300px', // Fixed width
-    height: '400px', // Fixed height
+    width: '320px', 
+    height: '400px',
     boxSizing: 'border-box',
     margin: '10px',
     transition: 'transform 0.3s ease, box-shadow 0.3s ease',
@@ -100,14 +100,17 @@ const Packages = () => {
     fontSize: '14px',
     color: '#666',
     margin: '5px 0',
-    fontWeight: '300', // Lighter font weight for text
+    fontWeight: '300',
   };
 
   const titleTextStyle = {
     ...textStyle,
-    fontWeight: '400', // Lighter font weight for the title
-    fontSize: '16px',
+    fontWeight: '400',
+    fontSize: '18px', 
     color: '#333',
+    margin: '10px 0', // Added margin to provide more spacing
+    textAlign: 'center',
+    overflowWrap: 'break-word',
   };
 
   const arrowStyle = {
