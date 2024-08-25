@@ -126,7 +126,7 @@ const PaymentPage = () => {
 
     return (
         <div>
-            <Row style={{ padding: '50px', backgroundColor: '#f0f2f5', minHeight: '100vh' }}>
+            <Row style={{ padding: '20px', backgroundColor: '#f0f2f5', minHeight: '100vh' }}>
                 <Col xs={24} md={12} style={{ padding: '20px' }}>
                     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }}>
                         <Title level={2} style={{ color: '#1890ff' }}>Welcome to WildLens!</Title>
