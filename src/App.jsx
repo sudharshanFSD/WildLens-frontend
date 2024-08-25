@@ -13,12 +13,14 @@ import BookingPage from './pages/BookingPage';
 import Tours from './pages/Tours';
 import AdminPackages from './pages/AdminPackage';
 import auth from './utils/auth';
+import { useNavigate } from 'react-router-dom';
 
 const { Content } = Layout;
 
 const App = () => {
     const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem('token'));
     const [isAdmin, setIsAdmin] = useState(localStorage.getItem('role') === 'admin');
+    const navigate = useNavigate();
 
     useEffect(() => {
         // Sync state with local storage on initial load
@@ -38,6 +40,7 @@ const App = () => {
         localStorage.removeItem('role');
         setIsLoggedIn(false);
         setIsAdmin(false);
+        navigate('/login');
     };
 
     return (
