@@ -48,7 +48,7 @@ const Packages = () => {
 
   const titleStyle = {
     fontSize: '20px',
-    fontWeight: '400',
+    fontWeight: '400', // Match font weight from TopPackages
     marginBottom: '20px',
     textAlign: 'center',
     color: '#333',
@@ -71,7 +71,7 @@ const Packages = () => {
     border: '1px solid #ddd',
     borderRadius: '8px',
     padding: '16px',
-    width: '320px', 
+    width: '320px',
     height: '400px',
     boxSizing: 'border-box',
     margin: '10px',
@@ -105,10 +105,10 @@ const Packages = () => {
 
   const titleTextStyle = {
     ...textStyle,
-    fontWeight: '400',
-    fontSize: '18px', 
+    fontWeight: '500', // Make title bold
+    fontSize: '18px',
     color: '#333',
-    margin: '10px 0', // Added margin to provide more spacing
+    margin: '10px 0',
     textAlign: 'center',
     overflowWrap: 'break-word',
   };
