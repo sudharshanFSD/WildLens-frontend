@@ -45,7 +45,7 @@ function Login({ onLogin }) {
                             borderRadius: '8px',
                             padding: '20px',
                             margin: '0 auto',
-                            marginTop:'-100px' 
+                            marginTop:'-130px' 
                         }}
                     >
                         <Row gutter={16} align="middle">
