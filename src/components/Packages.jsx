@@ -2,26 +2,35 @@ import React, { useEffect, useState, useRef } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { LeftOutlined, RightOutlined } from '@ant-design/icons';
+import { Spin, Alert } from 'antd';
 import 'antd/dist/reset.css';
 
-const Packages = () => {
+const TopPackages = () => {
   const [packages, setPackages] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [hoveredCard, setHoveredCard] = useState(null);
   const scrollContainerRef = useRef(null);
 
-  useEffect(() => {
-    const fetchPackages = async () => {
-      try {
-        const response = await axios.get('https://wildlens-backend-8aul.onrender.com/apiPackages/search');
+  const fetchTopPackages = async () => {
+    try {
+      const response = await axios.get('https://wildlens-backend-8aul.onrender.com/tours/topPackages');
+
+      if (Array.isArray(response.data)) {
         setPackages(response.data);
-      } catch (error) {
-        setError('Error fetching packages.');
+      } else {
+        console.error('Expected an array but got:', JSON.stringify(response.data, null, 2));
         setPackages([]);
       }
-    };
+    } catch (err) {
+      console.error('Error status:', err.response?.status);
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
 
-    fetchPackages();
+  useEffect(() => {
+    fetchTopPackages();
   }, []);
 
   const scrollLeft = () => {
@@ -47,8 +56,8 @@ const Packages = () => {
   };
 
   const titleStyle = {
-    fontSize: '20px',
-    fontWeight: '400',
+    fontSize: '20px', // Matches the title size in Packages
+    fontWeight: '400', // Matches the title weight in Packages
     marginBottom: '20px',
     textAlign: 'center',
     color: '#333',
@@ -59,8 +68,15 @@ const Packages = () => {
     overflowX: 'auto',
     scrollBehavior: 'smooth',
     paddingBottom: '20px',
+    overflowY: 'hidden',
     scrollbarWidth: 'none',
     msOverflowStyle: 'none',
+  };
+
+  const cardContainerStyle = {
+    display: 'flex',
+    flexDirection: 'row',
+    flexWrap: 'nowrap',
   };
 
   const cardStyle = {
@@ -71,17 +87,16 @@ const Packages = () => {
     border: '1px solid #ddd',
     borderRadius: '8px',
     padding: '16px',
-    width: '320px', 
-    height: '400px',
+    minWidth: '320px',
     boxSizing: 'border-box',
     margin: '10px',
     transition: 'transform 0.3s ease, box-shadow 0.3s ease',
+    height: '400px',
   };
 
   const cardHoverStyle = {
-    transform: 'scale(1.05)',
+    transform: 'scale(1.05) rotateY(10deg)',
     boxShadow: '0 8px 16px rgba(0, 0, 0, 0.3)',
-    zIndex: 1,
   };
 
   const imageStyle = {
@@ -94,21 +109,22 @@ const Packages = () => {
 
   const infoStyle = {
     textAlign: 'center',
+    flex: '1',
   };
 
   const textStyle = {
     fontSize: '14px',
-    color: '#666',
+    color: '#555',
     margin: '5px 0',
-    fontWeight: '300',
+    fontWeight: 300,
   };
 
   const titleTextStyle = {
     ...textStyle,
-    fontWeight: '400',
-    fontSize: '18px', 
+    fontWeight: '400', // Matches the title weight in Packages
+    fontSize: '16px', // Matches the title size in Packages
     color: '#333',
-    margin: '10px 0', // Added margin to provide more spacing
+    margin: '10px 0',
     textAlign: 'center',
     overflowWrap: 'break-word',
   };
@@ -135,39 +151,47 @@ const Packages = () => {
     right: '10px',
   };
 
+  if (loading) {
+    return <Spin size="large" />;
+  }
+
+  if (error) {
+    return <Alert message="Error" description={error} type="error" showIcon />;
+  }
+
   return (
     <div style={containerStyle}>
-      <h2 style={titleStyle}>Available Packages</h2>
-      {error && <p style={{ color: 'red' }}>{error}</p>}
+      <h2 style={titleStyle}>Top 5 Packages</h2>
       <LeftOutlined style={leftArrowStyle} onClick={scrollLeft} />
       <RightOutlined style={rightArrowStyle} onClick={scrollRight} />
       <div style={scrollContainerStyle} ref={scrollContainerRef}>
-        {packages.map(pkg => (
-          <Link
-            to={`/packages/${pkg._id}`}
-            key={pkg._id}
-            style={{ textDecoration: 'none', color: 'inherit' }}
-            onMouseEnter={() => setHoveredCard(pkg._id)}
-            onMouseLeave={() => setHoveredCard(null)}
-          >
-            <div
-              style={{
-                ...cardStyle,
-                ...(hoveredCard === pkg._id ? cardHoverStyle : {}),
-              }}
-            >
-              <img src={pkg.images[0]} alt={pkg.title} style={imageStyle} />
-              <div style={infoStyle}>
-                <h3 style={titleTextStyle}>{pkg.title}</h3>
-                <p style={textStyle}>{pkg.description}</p>
-                <p style={textStyle}>${pkg.price}</p>
+        <div style={cardContainerStyle}>
+          {packages.map((pkg) => (
+            <Link to={`/packages/${pkg._id}`} key={pkg._id} style={{ textDecoration: 'none', color: 'inherit' }}>
+              <div
+                style={cardStyle}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.transform = cardHoverStyle.transform;
+                  e.currentTarget.style.boxShadow = cardHoverStyle.boxShadow;
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.transform = 'none';
+                  e.currentTarget.style.boxShadow = 'none';
+                }}
+              >
+                <img src={pkg.images[0]} alt={pkg.title} style={imageStyle} />
+                <div style={infoStyle}>
+                  <h3 style={titleTextStyle}>{pkg.title}</h3>
+                  <p style={textStyle}>{pkg.description}</p>
+                  <p style={textStyle}>Price: ${pkg.price}</p>
+                </div>
               </div>
-            </div>
-          </Link>
-        ))}
+            </Link>
+          ))}
+        </div>
       </div>
     </div>
   );
 };
 
-export default Packages;
+export default TopPackages;
