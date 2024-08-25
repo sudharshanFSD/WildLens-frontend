@@ -48,7 +48,7 @@ const Packages = () => {
 
   const titleStyle = {
     fontSize: '20px',
-    fontWeight: '400', // Match font weight from TopPackages
+    fontWeight: '500', 
     marginBottom: '20px',
     textAlign: 'center',
     color: '#333',
